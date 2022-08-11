@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantsContext } from "../context/RestaurantsContext";
-import { Spinner } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StarRating from "./StarRating";
 
@@ -15,11 +14,11 @@ const RestaurantList = (props) => {
 
   const handleUpdate = (e, id) => {
     e.stopPropagation();
-    history.push(`/restaurants/${id}/update`);
+    history.push(`/api/v1/restaurants/${id}/update`);
   };
 
   const handleRestaurantSelect = (id) => {
-    history.push(`/restaurants/${id}`);
+    history.push(`/api/v1/restaurants/${id}`);
   };
 
   const renderRating = (rating, count) => {
@@ -61,16 +60,14 @@ const RestaurantList = (props) => {
 
   if (isLoading) {
     return (
-      <div className="d-flex justify-content-center">
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+      <div className="d-flex justify-content-center" style={{ color: 'red' }}>
+        <i class="fas fa-hamburger fa-spin fa-5x"></i>
       </div>
     );
   }
 
   return (
-    <div className="table-responsive">
+    <div className="table-responsive pt-2 pr-4 pl-4">
       <table className="table table-striped table-hover table-dark">
         <thead>
           <tr className="bg-primary">

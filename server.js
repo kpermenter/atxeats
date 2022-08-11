@@ -16,7 +16,6 @@ app
   .route("/api/v1/restaurants")
   .get(async (req, res, next) => {
     try {
-      // const results = await db.query("SELECT * FROM restaurants");
       const results = await db.query(
         "select * from restaurants LEFT JOIN (SELECT restaurant_id, count(*), trunc(AVG(rating)) AS average_rating FROM reviews GROUP BY restaurant_id) reviews on restaurants.id = reviews.restaurant_id"
       );
@@ -29,6 +28,7 @@ app
       console.log(error);
     }
   })
+
   .post(async (req, res, next) => {
     const { name, location, price_range } = req.body;
     try {
@@ -70,6 +70,7 @@ app
       console.log(error);
     }
   })
+
   .put(async (req, res, next) => {
     const { id } = req.params;
     const { name, location, price_range } = req.body;
@@ -86,6 +87,7 @@ app
       console.log(error);
     }
   })
+
   .delete(async (req, res, next) => {
     try {
       const { id } = req.params;
